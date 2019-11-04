@@ -15,7 +15,7 @@ public class ErrorUtil {
         } else if (e instanceof JsonSyntaxException) { //json 解析错误.
             return ((JsonSyntaxException)e).getMessage();
         } else { //业务错误.
-            return ((RuntimeException)e).getMessage();
+            return "";
         }
     }
 }

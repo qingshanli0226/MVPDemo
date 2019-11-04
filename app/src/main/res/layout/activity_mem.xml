@@ -4,17 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:orientation="vertical">
+    tools:context=".MainActivity">
 
     <Button
         android:id="@+id/btnGet"
-       android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="获取数据"/>
-
-    <Button
-        android:id="@+id/btnTestMem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="测试内存泄漏"/>

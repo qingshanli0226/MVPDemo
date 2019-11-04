@@ -1,7 +1,5 @@
 package com.example.mvp.base;
 
-import android.annotation.SuppressLint;
-
 import com.example.mvp.base.util.ErrorUtil;
 import com.example.mvp.net.ResEntity;
 import com.example.mvp.net.RetrofitCreator;
@@ -13,30 +11,39 @@ import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 
 //mvp的presenter的抽象类，实现获取网络数据的业务逻辑
-public abstract class BasePresenter<T> implements IBasePresenter {
+public abstract class BaseMemPresenter<T> implements IBasePresenter {
 
-    private IBaseView<T> iBaseView;
+    private IBaseView iBaseView;
 
 
     @Override
     public void getData() {
         RetrofitCreator.getApiService().getData(getHearerParmas(), getPath(), getParmas())
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
                 .subscribe(new Observer<ResponseBody>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        //提示用户正在加载，显示加载页
                     }
 
                     @Override
                     public void onNext(ResponseBody responseBody) {
+                        int i = 0;
+                        while (i <= 100) {
+                            iBaseView.onGetDataFailed("test mem leak");
+                            try {
+                                Thread.sleep(100);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            i++;
+                        }
+
                         try {
                             //如果返回的数据是列表
                             if (isList()) {
@@ -97,9 +104,10 @@ public abstract class BasePresenter<T> implements IBasePresenter {
         this.iBaseView = iBaseView;
     }
 
+    //当Activity销毁时，将ibaseview置成空，防止造成内存泄漏。
     @Override
     public void detachView() {
-        this.iBaseView = null;
+        //this.iBaseView = null;
     }
 
     public abstract String getPath();//让子类提供获取网络数据的路径

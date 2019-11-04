@@ -1,5 +1,6 @@
 package com.example.mvp.net;
 
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -23,7 +24,12 @@ public class RetrofitCreator {
     private static void createApiService() {
         //通过拦截器打印网络请求log
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        //可以设置打印级别
+        if (Constant.PRINT_LOG) {
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        } else {
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
+        }
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(50, TimeUnit.SECONDS)
                 .addInterceptor(loggingInterceptor)
