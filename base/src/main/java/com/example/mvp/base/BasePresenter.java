@@ -33,10 +33,12 @@ public abstract class BasePresenter<T> implements IBasePresenter {
                     @Override
                     public void onSubscribe(Disposable d) {
                         //提示用户正在加载，显示加载页
+                        iBaseView.showLoading();
                     }
 
                     @Override
                     public void onNext(ResponseBody responseBody) {
+                        iBaseView.hideLoading();
                         try {
                             //如果返回的数据是列表
                             if (isList()) {
@@ -74,6 +76,7 @@ public abstract class BasePresenter<T> implements IBasePresenter {
 
                     @Override
                     public void onError(Throwable e) {
+                        iBaseView.hideLoading();
                         String errorMessage = ErrorUtil.handleError(e);
                         //获取数据失败
                         if (iBaseView!= null) {

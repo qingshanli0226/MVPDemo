@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.mvp.base.BaseActivity;
 import com.example.mvp.base.IBasePresenter;
 import com.example.mvp.base.IBaseView;
+import com.google.android.gms.fitness.Fitness;
 import com.squareup.leakcanary.LeakCanary;
 
 import java.util.List;
@@ -63,6 +64,16 @@ public class MainActivity extends BaseActivity implements IBaseView<HomeBean> {
     @Override
     public void onGetDataFailed(String message) {
         Toast.makeText(MainActivity.this, "获取数据失败", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showLoading() {
+        //显示加载页面
+    }
+
+    @Override
+    public void hideLoading() {
+        //关闭加载页面
     }
 
     @Override

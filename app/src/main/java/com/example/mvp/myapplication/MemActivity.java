@@ -72,6 +72,16 @@ public class MemActivity extends AppCompatActivity implements IBaseView<HomeBean
     }
 
     @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         ActivityInstanceManager.removeActivity(this);

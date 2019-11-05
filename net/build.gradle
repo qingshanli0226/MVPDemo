@@ -43,4 +43,5 @@ dependencies {
     api 'com.squareup.okhttp3:logging-interceptor:3.8.1'
     //非必要依赖， log依赖，如果需要打印OkHttpLog需要添加
     api 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+    implementation project(':common')
 }

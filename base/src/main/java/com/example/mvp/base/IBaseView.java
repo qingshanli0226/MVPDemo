@@ -8,4 +8,6 @@ public interface IBaseView<T> {
     void onGetDataSuccess(T data);
     void onGetDataListSuccess(List<T> data);//返回列表的回调
     void onGetDataFailed(String message);
+    void showLoading();//开始请求数据时，后显示加载页面
+    void hideLoading();//请求数据结束时，关闭显示加载页面.
 }

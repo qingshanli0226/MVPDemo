@@ -1,6 +1,8 @@
 package com.example.mvp.net;
 
 
+import com.example.mvp.common.Constant;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
