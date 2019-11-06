@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ActivityInstanceManager {
     //为什么使用LinkedList？因为进行频繁增加删除操作
-    private static List<Activity> activityList = new ArrayList<>();
+    private static List<Activity> activityList = new LinkedList<>();
 
 
     //添加Activity
