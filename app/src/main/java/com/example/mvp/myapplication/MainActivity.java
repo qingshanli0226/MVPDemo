@@ -1,27 +1,26 @@
 package com.example.mvp.myapplication;
 
 import android.content.Intent;
-import android.support.annotation.IdRes;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.mvp.base.BaseActivity;
 import com.example.mvp.base.IBasePresenter;
 import com.example.mvp.base.IBaseView;
 import com.example.mvp.common.P2PError;
-import com.google.android.gms.fitness.Fitness;
-import com.squareup.leakcanary.LeakCanary;
 
+import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements IBaseView<HomeBean> {
+//多次网络请求，所以返回值使用Object类型
+public class MainActivity extends BaseActivity implements IBaseView<Object> {
 
-    private IBasePresenter iBasePresenter;//声明一个接口
+    private IBasePresenter iHomePresenter;//声明一个接口
+    private IBasePresenter iSplashPresenter;//声明一个接口
 
+    private final int HOME_REQUEST_CODE = 100;
+    private final int SPLASH_REQUEST_CODE = 200;
 
     @Override
     protected int getLayoutId() {
@@ -33,7 +32,13 @@ public class MainActivity extends BaseActivity implements IBaseView<HomeBean> {
         findViewById(R.id.btnGet).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                iBasePresenter.getData();
+                iHomePresenter.doHttpRequest(HOME_REQUEST_CODE);
+            }
+        });
+        findViewById(R.id.btnPost).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iSplashPresenter.doHttpPostRequest(SPLASH_REQUEST_CODE);
             }
         });
         findViewById(R.id.btnTestMem).setOnClickListener(new View.OnClickListener() {
@@ -46,40 +51,52 @@ public class MainActivity extends BaseActivity implements IBaseView<HomeBean> {
 
     @Override
     protected void initData() {
-        iBasePresenter = new HomePresenter();
-        iBasePresenter.attachView(this);
+        iHomePresenter = new HomePresenter();
+        iHomePresenter.attachView(this);
+        iSplashPresenter = new SplashPresenter();
+        iSplashPresenter.attachView(this);
     }
 
     @Override
-    public void onGetDataSuccess(HomeBean data) {
-
+    public void onHttpRequestDataSuccess(int requestCode, Object data) {
+        if (requestCode == SPLASH_REQUEST_CODE) {
+            SplashDataBean splashDataBean = (SplashDataBean)data;
+            Log.d("LQS POST---", splashDataBean.getRetCode()+"" + splashDataBean.getRequestId());
+        }
     }
 
     @Override
-    public void onGetDataListSuccess(List<HomeBean> data) {
-        Log.d("LQS", data.toString());
-        Toast.makeText(MainActivity.this, "获取数据成功", Toast.LENGTH_SHORT).show();
+    public void onHttpRequestDataListSuccess(int requestCode,List<Object> data) {
+        if (requestCode == HOME_REQUEST_CODE) {//表示确定那个网络请求，例如本次是home数据网络请求
+            //做类型转换，转换成我们需要的类型
+            List<HomeBean> homeBeanList = Arrays.asList(data.toArray(new HomeBean[0]));
 
+            for(HomeBean bean:homeBeanList) {
+                Log.d("LQS---", bean.getFood_str());
+            }
+            Toast.makeText(MainActivity.this, "获取数据成功", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
-    public void onGetDataFailed(P2PError error) {
+    public void onHttpRequestDataFailed(int requestCode,P2PError error) {
         Toast.makeText(MainActivity.this, error.getErrorMessage(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void showLoading() {
+    public void showLoading(int requestCode) {
         //显示加载页面
     }
 
     @Override
-    public void hideLoading() {
+    public void hideLoading(int requestCode) {
         //关闭加载页面
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        iBasePresenter.detachView();
+        iHomePresenter.detachView();
+        iSplashPresenter.detachView();
     }
 }

@@ -23,7 +23,7 @@ public abstract class BaseMemPresenter<T> implements IBasePresenter {
 
 
     @Override
-    public void getData() {
+    public void doHttpRequest(final int requestCode) {
         RetrofitCreator.getApiService().getData(getHearerParmas(), getPath(), getParmas())
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
@@ -36,7 +36,7 @@ public abstract class BaseMemPresenter<T> implements IBasePresenter {
                     public void onNext(ResponseBody responseBody) {
                         int i = 0;
                         while (i <= 100) {
-                            iBaseView.onGetDataFailed(P2PError.MEM_ERROR);
+                            iBaseView.onHttpRequestDataFailed(requestCode,P2PError.MEM_ERROR);
                             try {
                                 Thread.sleep(100);
                             } catch (InterruptedException e) {
@@ -52,12 +52,12 @@ public abstract class BaseMemPresenter<T> implements IBasePresenter {
                                 if (resEntityList.getRet().equals("1")) {
                                     //获取列表数据成功
                                     if (iBaseView!= null) {
-                                        iBaseView.onGetDataListSuccess(resEntityList.getData());
+                                        iBaseView.onHttpRequestDataListSuccess(requestCode,resEntityList.getData());
                                     }
                                 } else {
                                     //获取数据失败
                                     if (iBaseView!= null) {
-                                        iBaseView.onGetDataFailed(P2PError.BUSINESS_ERROR);
+                                        iBaseView.onHttpRequestDataFailed(requestCode,P2PError.BUSINESS_ERROR);
                                     }
                                 }
                             } else {
@@ -65,12 +65,12 @@ public abstract class BaseMemPresenter<T> implements IBasePresenter {
                                 if (resEntity.getRet().equals("1")) {
                                     //获取数据成功
                                     if (iBaseView!= null) {
-                                        iBaseView.onGetDataSuccess(resEntity.getData());
+                                        iBaseView.onHttpRequestDataSuccess(requestCode,resEntity.getData());
                                     }
                                 } else {
                                     //获取数据失败
                                     if (iBaseView!= null) {
-                                        iBaseView.onGetDataFailed(P2PError.BUSINESS_ERROR);
+                                        iBaseView.onHttpRequestDataFailed(requestCode,P2PError.BUSINESS_ERROR);
                                     }
                                 }
                             }
@@ -84,7 +84,7 @@ public abstract class BaseMemPresenter<T> implements IBasePresenter {
                     public void onError(Throwable e) {
                         //获取数据失败
                         if (iBaseView!= null) {
-                            iBaseView.onGetDataFailed(ErrorUtil.handleError(e));
+                            iBaseView.onHttpRequestDataFailed(requestCode,ErrorUtil.handleError(e));
                         }
                     }
 

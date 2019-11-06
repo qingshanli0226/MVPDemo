@@ -12,6 +12,11 @@
        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="获取数据"/>
+    <Button
+        android:id="@+id/btnPost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="通过Post获取数据"/>
 
     <Button
         android:id="@+id/btnTestMem"

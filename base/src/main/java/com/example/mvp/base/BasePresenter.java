@@ -1,11 +1,10 @@
 package com.example.mvp.base;
 
-import android.annotation.SuppressLint;
-
 import com.example.mvp.base.util.ErrorUtil;
 import com.example.mvp.common.P2PError;
 import com.example.mvp.net.ResEntity;
 import com.example.mvp.net.RetrofitCreator;
+import com.example.mvp.net.RetrofitPostCreator;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -24,9 +23,8 @@ public abstract class BasePresenter<T> implements IBasePresenter {
 
     private IBaseView<T> iBaseView;
 
-
     @Override
-    public void getData() {
+    public void doHttpRequest(final int requestCode) {
         RetrofitCreator.getApiService().getData(getHearerParmas(), getPath(), getParmas())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -34,12 +32,13 @@ public abstract class BasePresenter<T> implements IBasePresenter {
                     @Override
                     public void onSubscribe(Disposable d) {
                         //提示用户正在加载，显示加载页
-                        iBaseView.showLoading();
+                        iBaseView.showLoading(requestCode);
                     }
 
                     @Override
                     public void onNext(ResponseBody responseBody) {
-                        iBaseView.hideLoading();
+                        //关闭显示的加载页面
+                        iBaseView.hideLoading(requestCode);
                         try {
                             //如果返回的数据是列表
                             if (isList()) {
@@ -47,12 +46,12 @@ public abstract class BasePresenter<T> implements IBasePresenter {
                                 if (resEntityList.getRet().equals("1")) {
                                     //获取列表数据成功
                                     if (iBaseView!= null) {
-                                        iBaseView.onGetDataListSuccess(resEntityList.getData());
+                                        iBaseView.onHttpRequestDataListSuccess(requestCode,resEntityList.getData());
                                     }
                                 } else {
-                                    //获取数据失败
+                                    //获取列表数据失败
                                     if (iBaseView!= null) {
-                                        iBaseView.onGetDataFailed(P2PError.BUSINESS_ERROR);
+                                        iBaseView.onHttpRequestDataFailed(requestCode,P2PError.BUSINESS_ERROR);
                                     }
                                 }
                             } else {
@@ -60,12 +59,12 @@ public abstract class BasePresenter<T> implements IBasePresenter {
                                 if (resEntity.getRet().equals("1")) {
                                     //获取数据成功
                                     if (iBaseView!= null) {
-                                        iBaseView.onGetDataSuccess(resEntity.getData());
+                                        iBaseView.onHttpRequestDataSuccess(requestCode,resEntity.getData());
                                     }
                                 } else {
                                     //获取数据失败
                                     if (iBaseView!= null) {
-                                        iBaseView.onGetDataFailed(P2PError.BUSINESS_ERROR);
+                                        iBaseView.onHttpRequestDataFailed(requestCode,P2PError.BUSINESS_ERROR);
                                     }
                                 }
                             }
@@ -77,10 +76,11 @@ public abstract class BasePresenter<T> implements IBasePresenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        iBaseView.hideLoading();
+                        //关闭显示的加载页面
+                        iBaseView.hideLoading(requestCode);
                         //获取数据失败
                         if (iBaseView!= null) {
-                            iBaseView.onGetDataFailed(ErrorUtil.handleError(e));
+                            iBaseView.onHttpRequestDataFailed(requestCode,ErrorUtil.handleError(e));
                         }
                     }
 
@@ -92,14 +92,62 @@ public abstract class BasePresenter<T> implements IBasePresenter {
 
     }
 
+
+    @Override
+    public void doHttpPostRequest(final int requestCode) {
+        RetrofitPostCreator.getApiService().postData(getHearerParmas(), getPath(), getParmas())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        //提示用户正在加载，显示加载页
+                        iBaseView.showLoading(requestCode);
+                    }
+
+                    @Override
+                    public void onNext(ResponseBody responseBody) {
+                        //关闭显示的加载页面
+                        iBaseView.hideLoading(requestCode);
+                        try {
+                            T resEntity = new Gson().fromJson(responseBody.string(), getBeanType());
+
+                            //获取数据成功
+                            if (iBaseView!= null) {
+                                iBaseView.onHttpRequestDataSuccess(requestCode,resEntity);
+                            }
+
+                        } catch (IOException e) {
+                            throw new RuntimeException("获取数据为空");//扔出异常，让onError函数统一处理
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        //关闭显示的加载页面
+                        iBaseView.hideLoading(requestCode);
+                        //获取数据失败
+                        if (iBaseView!= null) {
+                            iBaseView.onHttpRequestDataFailed(requestCode,ErrorUtil.handleError(e));
+                        }
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+
+
     //Activity 或者Fragment注册回调接口, 在初始化presenter时调用
-
-
     @Override
     public void attachView(IBaseView iBaseView) {
         this.iBaseView = iBaseView;
     }
 
+    //当页面销毁时，置成空，防止内存泄漏
     @Override
     public void detachView() {
         this.iBaseView = null;

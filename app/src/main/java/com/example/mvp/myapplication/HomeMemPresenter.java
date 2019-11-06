@@ -35,4 +35,9 @@ public class HomeMemPresenter extends BaseMemPresenter<HomeBean> {
     public boolean isList() {
         return true;
     }
+
+    @Override
+    public void doHttpPostRequest(int requestCode) {
+
+    }
 }

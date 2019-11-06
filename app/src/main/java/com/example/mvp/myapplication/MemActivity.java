@@ -15,6 +15,7 @@ import com.example.mvp.common.P2PError;
 
 import java.util.List;
 
+//认为该页面就是一次网络请求,所以使用具体数据类型
 public class MemActivity extends AppCompatActivity implements IBaseView<HomeBean> {
     private IBasePresenter iBasePresenter;//声明一个接口
 
@@ -35,7 +36,7 @@ public class MemActivity extends AppCompatActivity implements IBaseView<HomeBean
             @Override
             public void onClick(View v) {
                 Toast.makeText(MemActivity.this, "开始内存泄漏测试，5秒内点击back，finish Activity!", Toast.LENGTH_SHORT).show();
-                iBasePresenter.getData();
+                iBasePresenter.doHttpRequest(100);
             }
         });
 
@@ -57,28 +58,28 @@ public class MemActivity extends AppCompatActivity implements IBaseView<HomeBean
     }
 
     @Override
-    public void onGetDataSuccess(HomeBean data) {
+    public void onHttpRequestDataSuccess(int requestCode, HomeBean data) {
 
     }
 
     @Override
-    public void onGetDataListSuccess(List<HomeBean> data) {
+    public void onHttpRequestDataListSuccess(int requestCode, List<HomeBean> data) {
 
     }
 
     @Override
-    public void onGetDataFailed(P2PError error) {
-        Log.d("onGetDataFailed LQS:", error.getErrorMessage());
+    public void onHttpRequestDataFailed(int requestCode, P2PError error) {
+        Log.d("LQS:", error.getErrorMessage());
 
     }
 
     @Override
-    public void showLoading() {
+    public void showLoading(int requestCode) {
 
     }
 
     @Override
-    public void hideLoading() {
+    public void hideLoading(int requestCode) {
 
     }
 
