@@ -1,6 +1,7 @@
 package com.example.mvp.base;
 
 import com.example.mvp.base.util.ErrorUtil;
+import com.example.mvp.common.P2PError;
 import com.example.mvp.net.ResEntity;
 import com.example.mvp.net.RetrofitCreator;
 import com.google.gson.Gson;
@@ -35,7 +36,7 @@ public abstract class BaseMemPresenter<T> implements IBasePresenter {
                     public void onNext(ResponseBody responseBody) {
                         int i = 0;
                         while (i <= 100) {
-                            iBaseView.onGetDataFailed("test mem leak");
+                            iBaseView.onGetDataFailed(P2PError.MEM_ERROR);
                             try {
                                 Thread.sleep(100);
                             } catch (InterruptedException e) {
@@ -56,7 +57,7 @@ public abstract class BaseMemPresenter<T> implements IBasePresenter {
                                 } else {
                                     //获取数据失败
                                     if (iBaseView!= null) {
-                                        iBaseView.onGetDataFailed("获取数据失败");
+                                        iBaseView.onGetDataFailed(P2PError.BUSINESS_ERROR);
                                     }
                                 }
                             } else {
@@ -69,7 +70,7 @@ public abstract class BaseMemPresenter<T> implements IBasePresenter {
                                 } else {
                                     //获取数据失败
                                     if (iBaseView!= null) {
-                                        iBaseView.onGetDataFailed("获取数据失败");
+                                        iBaseView.onGetDataFailed(P2PError.BUSINESS_ERROR);
                                     }
                                 }
                             }
@@ -81,10 +82,9 @@ public abstract class BaseMemPresenter<T> implements IBasePresenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        String errorMessage = ErrorUtil.handleError(e);
                         //获取数据失败
                         if (iBaseView!= null) {
-                            iBaseView.onGetDataFailed(errorMessage);
+                            iBaseView.onGetDataFailed(ErrorUtil.handleError(e));
                         }
                     }
 

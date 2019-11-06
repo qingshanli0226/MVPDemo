@@ -3,6 +3,7 @@ package com.example.mvp.base;
 import android.annotation.SuppressLint;
 
 import com.example.mvp.base.util.ErrorUtil;
+import com.example.mvp.common.P2PError;
 import com.example.mvp.net.ResEntity;
 import com.example.mvp.net.RetrofitCreator;
 import com.google.gson.Gson;
@@ -51,7 +52,7 @@ public abstract class BasePresenter<T> implements IBasePresenter {
                                 } else {
                                     //获取数据失败
                                     if (iBaseView!= null) {
-                                        iBaseView.onGetDataFailed("获取数据失败");
+                                        iBaseView.onGetDataFailed(P2PError.BUSINESS_ERROR);
                                     }
                                 }
                             } else {
@@ -64,7 +65,7 @@ public abstract class BasePresenter<T> implements IBasePresenter {
                                 } else {
                                     //获取数据失败
                                     if (iBaseView!= null) {
-                                        iBaseView.onGetDataFailed("获取数据失败");
+                                        iBaseView.onGetDataFailed(P2PError.BUSINESS_ERROR);
                                     }
                                 }
                             }
@@ -77,10 +78,9 @@ public abstract class BasePresenter<T> implements IBasePresenter {
                     @Override
                     public void onError(Throwable e) {
                         iBaseView.hideLoading();
-                        String errorMessage = ErrorUtil.handleError(e);
                         //获取数据失败
                         if (iBaseView!= null) {
-                            iBaseView.onGetDataFailed(errorMessage);
+                            iBaseView.onGetDataFailed(ErrorUtil.handleError(e));
                         }
                     }
 

@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.mvp.base.BaseActivity;
 import com.example.mvp.base.IBasePresenter;
 import com.example.mvp.base.IBaseView;
+import com.example.mvp.common.P2PError;
 import com.google.android.gms.fitness.Fitness;
 import com.squareup.leakcanary.LeakCanary;
 
@@ -62,8 +63,8 @@ public class MainActivity extends BaseActivity implements IBaseView<HomeBean> {
     }
 
     @Override
-    public void onGetDataFailed(String message) {
-        Toast.makeText(MainActivity.this, "获取数据失败", Toast.LENGTH_SHORT).show();
+    public void onGetDataFailed(P2PError error) {
+        Toast.makeText(MainActivity.this, error.getErrorMessage(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

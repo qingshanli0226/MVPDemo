@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.example.mvp.base.ActivityInstanceManager;
 import com.example.mvp.base.IBasePresenter;
 import com.example.mvp.base.IBaseView;
+import com.example.mvp.common.P2PError;
 
 import java.util.List;
 
@@ -66,8 +67,8 @@ public class MemActivity extends AppCompatActivity implements IBaseView<HomeBean
     }
 
     @Override
-    public void onGetDataFailed(String message) {
-        Log.d("onGetDataFailed LQS:", message);
+    public void onGetDataFailed(P2PError error) {
+        Log.d("onGetDataFailed LQS:", error.getErrorMessage());
 
     }
 
