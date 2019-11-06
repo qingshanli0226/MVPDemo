@@ -16,6 +16,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 
+//该类是用来测试内存泄漏用的
 //mvp的presenter的抽象类，实现获取网络数据的业务逻辑
 public abstract class BaseMemPresenter<T> implements IBasePresenter {
 

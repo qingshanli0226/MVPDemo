@@ -23,6 +23,7 @@ public abstract class BasePresenter<T> implements IBasePresenter {
 
     private IBaseView<T> iBaseView;
 
+    //http get网络请求
     @Override
     public void doHttpRequest(final int requestCode) {
         RetrofitCreator.getApiService().getData(getHearerParmas(), getPath(), getParmas())
@@ -92,7 +93,7 @@ public abstract class BasePresenter<T> implements IBasePresenter {
 
     }
 
-
+    //http post 网络请求
     @Override
     public void doHttpPostRequest(final int requestCode) {
         RetrofitPostCreator.getApiService().postData(getHearerParmas(), getPath(), getParmas())

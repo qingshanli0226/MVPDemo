@@ -11,6 +11,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+//该类是用来测试Post用的泄漏用的
 public class RetrofitPostCreator {
 
     public static PostApiService netApiService;

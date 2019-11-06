@@ -1,4 +1,4 @@
-package com.example.mvp.base;
+package com.example.mvp.common;
 
 import android.app.Activity;
 

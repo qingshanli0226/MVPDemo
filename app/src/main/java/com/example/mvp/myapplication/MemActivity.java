@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.mvp.base.ActivityInstanceManager;
+import com.example.mvp.common.ActivityInstanceManager;
 import com.example.mvp.base.IBasePresenter;
 import com.example.mvp.base.IBaseView;
 import com.example.mvp.common.P2PError;
