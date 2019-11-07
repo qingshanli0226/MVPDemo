@@ -1,6 +1,8 @@
 package com.example.mvp.myapplication;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -10,6 +12,7 @@ import com.example.mvp.base.IBasePresenter;
 import com.example.mvp.base.IBaseView;
 import com.example.mvp.common.P2PError;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,6 +25,8 @@ public class MainActivity extends BaseActivity implements IBaseView<Object> {
     private final int HOME_REQUEST_CODE = 100;
     private final int SPLASH_REQUEST_CODE = 200;
 
+    List<Bitmap> bitmapList = new ArrayList<>();
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -33,6 +38,21 @@ public class MainActivity extends BaseActivity implements IBaseView<Object> {
             @Override
             public void onClick(View v) {
                 iHomePresenter.doHttpRequest(HOME_REQUEST_CODE);
+                /*new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        while (true) {
+                            Bitmap bitmap = BitmapFactory.decodeFile("/sdcard/1610A.jpg");
+                            Log.d("LQS", "bitmap ....");
+                            try {
+                                Thread.sleep(100);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            bitmapList.add(bitmap);
+                        }
+                    }
+                }).start();*/
             }
         });
         findViewById(R.id.btnPost).setOnClickListener(new View.OnClickListener() {
