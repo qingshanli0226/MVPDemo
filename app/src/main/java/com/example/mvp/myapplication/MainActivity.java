@@ -3,6 +3,7 @@ package com.example.mvp.myapplication;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -14,6 +15,7 @@ import com.example.mvp.common.P2PError;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 //多次网络请求，所以返回值使用Object类型
@@ -70,11 +72,49 @@ public class MainActivity extends BaseActivity implements IBaseView<Object> {
     }
 
     @Override
+    protected void iniTitle() {
+        //实例化titleBar
+        titleBar = findViewById(R.id.titleBar);
+        setTitle("测试");
+        setLeftImg(R.mipmap.search);
+        setLeftText("搜索");
+        setRightImg(R.mipmap.menu);
+        setRightText("菜单");
+        showLeftTv();
+        showRightImg();
+    }
+
+    @Override
+    public void onLeftImgClick() {
+        Toast.makeText(this,  "用户点击左侧按钮", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     protected void initData() {
-        iHomePresenter = new HomePresenter();
+        HashMap<String, String> paramMap = new HashMap<>();
+        paramMap.put("stage_id", "1");
+        paramMap.put("limit", "20");
+        paramMap.put("page", "1");
+        iHomePresenter = new HomePresenter(paramMap);
         iHomePresenter.attachView(this);
         iSplashPresenter = new SplashPresenter();
         iSplashPresenter.attachView(this);
+
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int heightPixels = dm.heightPixels;
+        int widthPixels = dm.widthPixels;
+        float density = dm.density;
+        float heightDP = heightPixels / density;
+        float widthDP = widthPixels / density;
+        float smallestWidthDP;
+        if(widthDP < heightDP) {
+            smallestWidthDP = widthDP;
+        }else {
+            smallestWidthDP = heightDP;
+        }
+
+        Log.d("LQS:small = ", smallestWidthDP+"");
     }
 
     @Override

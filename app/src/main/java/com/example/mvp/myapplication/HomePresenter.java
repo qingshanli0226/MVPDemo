@@ -9,6 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 
 public class HomePresenter extends BasePresenter<HomeBean> {
+    HashMap<String, String> params;
+
+    public HomePresenter(HashMap<String, String> params) {
+        this.params = params;
+    }
+
     @Override
     public String getPath() {
         return "dish_list.php";
@@ -16,11 +22,7 @@ public class HomePresenter extends BasePresenter<HomeBean> {
 
     @Override
     public HashMap<String, String> getParmas() {
-        HashMap<String, String> paramMap = new HashMap<>();
-        paramMap.put("stage_id", "1");
-        paramMap.put("limit", "20");
-        paramMap.put("page", "1");
-        return paramMap;
+        return params;
     }
 
 

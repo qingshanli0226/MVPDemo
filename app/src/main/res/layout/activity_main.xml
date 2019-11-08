@@ -7,9 +7,15 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
+    <com.example.mvp.common.view.TitleBar
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+    </com.example.mvp.common.view.TitleBar>
+
     <Button
         android:id="@+id/btnGet"
-       android:layout_width="match_parent"
+       android:layout_width="@dimen/size"
         android:layout_height="wrap_content"
         android:text="获取数据"/>
     <Button

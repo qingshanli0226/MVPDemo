@@ -14,7 +14,7 @@ public class P2PApplication extends Application {
         super.onCreate();
         instance = this;
         //在此处调用crashHandler的初始化函数
-        P2PCrashHandler.getInstance(instance).init();
+        //P2PCrashHandler.getInstance(instance).init();
 
         //使用leakcannary来检测当前应用是否有内存泄漏.
         if (!LeakCanary.isInAnalyzerProcess(this)) {

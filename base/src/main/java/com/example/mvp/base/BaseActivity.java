@@ -1,24 +1,61 @@
 package com.example.mvp.base;
 
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.mvp.common.ActivityInstanceManager;
+import com.example.mvp.common.view.TitleBar;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements TitleBar.ITitleViewClickListener {
+    protected TitleBar titleBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
 
+        iniTitle();
         initView();
 
         initData();//一般需要异步操作。在oncreate中只是触发子线程获取数据
 
         //把自己加入到缓存的Activity列表中
         ActivityInstanceManager.addActivity(this);
+
+        titleBar.setTitleClickListener(this);
+    }
+
+    //子类必须实例化titleBar
+    protected abstract void iniTitle();
+
+    protected void setTitle(String title) {
+        titleBar.setTitleText(title);
+    }
+
+    protected void setLeftText(String leftText) {
+        titleBar.setLeftText(leftText);
+    }
+
+    protected void setRightText(String rightText) {
+        titleBar.setRightTvText(rightText);
+    }
+
+    protected void setLeftImg(@DrawableRes int imgId) {
+        titleBar.setLeftImage(imgId);
+    }
+
+    protected void setRightImg(@DrawableRes int imgId) {
+        titleBar.setRightImage(imgId);
+    }
+
+    protected void showLeftTv() {
+        titleBar.showLeftTv();
+    }
+
+    protected void showRightImg() {
+        titleBar.showRightImg();
     }
 
     //初始化数据
@@ -35,5 +72,23 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         ActivityInstanceManager.removeActivity(this);
+        titleBar.clearListener();
     }
+
+    @Override
+    public void onLeftImgClick() {
+        finish();//默认左侧按钮是关闭页面
+    }
+
+    @Override
+    public void onRightImgClick() {
+
+    }
+
+    @Override
+    public void onRightTvClick() {
+
+    }
+
+
 }
