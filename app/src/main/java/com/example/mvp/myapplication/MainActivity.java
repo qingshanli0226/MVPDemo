@@ -73,8 +73,6 @@ public class MainActivity extends BaseActivity implements IBaseView<Object> {
 
     @Override
     protected void iniTitle() {
-        //实例化titleBar
-        titleBar = findViewById(R.id.titleBar);
         setTitle("测试");
         setLeftImg(R.mipmap.search);
         setLeftText("搜索");

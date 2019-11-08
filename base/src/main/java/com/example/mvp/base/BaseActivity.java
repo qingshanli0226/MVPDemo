@@ -16,6 +16,7 @@ public abstract class BaseActivity extends AppCompatActivity implements TitleBar
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
 
+        titleBar = findViewById(R.id.titleBar);
         iniTitle();
         initView();
 
@@ -27,7 +28,7 @@ public abstract class BaseActivity extends AppCompatActivity implements TitleBar
         titleBar.setTitleClickListener(this);
     }
 
-    //子类必须实例化titleBar
+    //子类
     protected abstract void iniTitle();
 
     protected void setTitle(String title) {
