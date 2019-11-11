@@ -1,6 +1,7 @@
 package com.example.mvp.myapplication;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.DisplayMetrics;
@@ -28,6 +29,22 @@ public class MainActivity extends BaseActivity implements IBaseView<Object> {
     private final int SPLASH_REQUEST_CODE = 200;
 
     List<Bitmap> bitmapList = new ArrayList<>();
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Log.d("LQS", "onConfigurationChanged");
+
+        //函数可以监听屏幕的切换事件
+
+        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Log.d("LQS", "当前屏幕切换到横屏");
+
+        } else if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Log.d("LQS", "当前屏幕切换到竖屏");
+        }
+
+    }
 
     @Override
     protected int getLayoutId() {
@@ -73,18 +90,18 @@ public class MainActivity extends BaseActivity implements IBaseView<Object> {
 
     @Override
     protected void iniTitle() {
-        setTitle("测试");
+        setTitle(getResources().getString(R.string.test));
         setLeftImg(R.mipmap.search);
-        setLeftText("搜索");
+        setLeftText(getString(R.string.search));
         setRightImg(R.mipmap.menu);
-        setRightText("菜单");
+        setRightText(getString(R.string.menu));
         showLeftTv();
         showRightImg();
     }
 
     @Override
     public void onLeftImgClick() {
-        Toast.makeText(this,  "用户点击左侧按钮", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,  getString(R.string.please_click_left_button), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -132,7 +149,7 @@ public class MainActivity extends BaseActivity implements IBaseView<Object> {
             for(HomeBean bean:homeBeanList) {
                 Log.d("LQS---", bean.getFood_str());
             }
-            Toast.makeText(MainActivity.this, "获取数据成功", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, getString(R.string.get_data_success), Toast.LENGTH_SHORT).show();
         }
     }
 

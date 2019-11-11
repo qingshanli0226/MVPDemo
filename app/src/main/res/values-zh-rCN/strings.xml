@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">MVP测试</string>
+    <string name="get_data">获取数据</string>
+    <string name="get_data_by_post">通过Post获取数据</string>
+    <string name="test_memleak">演示内存泄漏</string>
+    <string name="test">测试</string>
+    <string name="search">搜索</string>
+    <string name="menu">菜单</string>
+    <string name="please_click_left_button">用户点击左侧按钮</string>
+    <string name="get_data_success">获取数据成功</string>
 </resources>

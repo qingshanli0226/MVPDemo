@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <com.example.mvp.common.view.TitleBar
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+    </com.example.mvp.common.view.TitleBar>
+
+    <Button
+        android:id="@+id/btnGet"
+       android:layout_width="@dimen/size"
+        android:layout_height="wrap_content"
+        android:text="@string/get_data"/>
+    <Button
+        android:id="@+id/btnPost"
+        android:layout_width="@dimen/size"
+        android:layout_height="wrap_content"
+        android:text="@string/get_data_by_post"/>
+
+    <Button
+        android:id="@+id/btnTestMem"
+        android:layout_width="@dimen/size"
+        android:layout_height="wrap_content"
+        android:text="@string/test_memleak"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/e"/>
+
+</LinearLayout>
