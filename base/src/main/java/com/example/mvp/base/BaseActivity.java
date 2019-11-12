@@ -6,9 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.mvp.common.ActivityInstanceManager;
+import com.example.mvp.common.NetConnectManager;
 import com.example.mvp.common.view.TitleBar;
 
-public abstract class BaseActivity extends AppCompatActivity implements TitleBar.ITitleViewClickListener {
+public abstract class BaseActivity extends AppCompatActivity implements TitleBar.ITitleViewClickListener, NetConnectManager.INetConnectListener {
     protected TitleBar titleBar;
 
     @Override
@@ -26,6 +27,9 @@ public abstract class BaseActivity extends AppCompatActivity implements TitleBar
         ActivityInstanceManager.addActivity(this);
 
         titleBar.setTitleClickListener(this);
+
+        //注册listener，监听当前网络连接的变化
+        NetConnectManager.getInstance().registerNetConnectListener(this);
     }
 
     //子类
@@ -74,6 +78,7 @@ public abstract class BaseActivity extends AppCompatActivity implements TitleBar
         super.onDestroy();
         ActivityInstanceManager.removeActivity(this);
         titleBar.clearListener();
+        NetConnectManager.getInstance().unRegisterNetConnectListener(this);
     }
 
     @Override
@@ -91,5 +96,17 @@ public abstract class BaseActivity extends AppCompatActivity implements TitleBar
 
     }
 
+    public boolean isConnected() {
+        return NetConnectManager.getInstance().isConnectStatus();
+    }
 
+    @Override
+    public void onConnected() {
+
+    }
+
+    @Override
+    public void onDisConnected() {
+
+    }
 }

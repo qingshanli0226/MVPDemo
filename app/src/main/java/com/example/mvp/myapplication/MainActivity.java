@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -43,7 +44,6 @@ public class MainActivity extends BaseActivity implements IBaseView<Object> {
         } else if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             Log.d("LQS", "当前屏幕切换到竖屏");
         }
-
     }
 
     @Override
@@ -104,8 +104,18 @@ public class MainActivity extends BaseActivity implements IBaseView<Object> {
         Toast.makeText(this,  getString(R.string.please_click_left_button), Toast.LENGTH_SHORT).show();
     }
 
+
     @Override
     protected void initData() {
+
+        //获取网络数据之前，先判断当前网络是否连接，如果没有连接则提示用户，就不再进行网络请求了
+        if (!isConnected()) {
+            Toast.makeText(this, "当前网络没有连接", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Toast.makeText(this, "当前网络连接正常，获取数据", Toast.LENGTH_SHORT).show();
+
         HashMap<String, String> paramMap = new HashMap<>();
         paramMap.put("stage_id", "1");
         paramMap.put("limit", "20");
@@ -130,6 +140,16 @@ public class MainActivity extends BaseActivity implements IBaseView<Object> {
         }
 
         Log.d("LQS:small = ", smallestWidthDP+"");
+    }
+
+    @Override
+    public void onConnected() {
+        initData();//如果监听网络再次连接成功，则直接获取数据
+    }
+
+    @Override
+    public void onDisConnected() {
+        Toast.makeText(this, "当前网络连接已经断开", Toast.LENGTH_SHORT).show();
     }
 
     @Override
