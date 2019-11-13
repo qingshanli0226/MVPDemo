@@ -1,5 +1,7 @@
 package com.example.mvp.myapplication;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +15,7 @@ import com.example.mvp.base.IBasePresenter;
 import com.example.mvp.base.IBaseView;
 import com.example.mvp.common.P2PError;
 
+import java.util.LinkedList;
 import java.util.List;
 
 //认为该页面就是一次网络请求,所以使用具体数据类型
@@ -20,6 +23,7 @@ public class MemActivity extends AppCompatActivity implements IBaseView<HomeBean
     private IBasePresenter iBasePresenter;//声明一个接口
 
     private Button btn;
+    private List<Bitmap> bitmapList = new LinkedList<>();
 
 
 
@@ -42,19 +46,21 @@ public class MemActivity extends AppCompatActivity implements IBaseView<HomeBean
 
         ActivityInstanceManager.addActivity(this);
 
-        /*new Thread(new Runnable() {
+        new Thread(new Runnable() {
             @Override
             public void run() {
                 while (true) {
                     try {
                         Thread.sleep(500);
+                        Bitmap bitmap = BitmapFactory.decodeFile("/sdcard/1610A.jpg");
+                        bitmapList.add(bitmap);
                         Log.d("LQS","work thread run!");
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
             }
-        }).start();*/
+        }).start();
     }
 
     @Override

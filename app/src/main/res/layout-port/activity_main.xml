@@ -29,6 +29,26 @@
         android:layout_width="@dimen/size"
         android:layout_height="wrap_content"
         android:text="@string/test_memleak"/>
+    <Button
+        android:id="@+id/btnHandlerMem"
+        android:layout_width="@dimen/size"
+        android:layout_height="wrap_content"
+        android:text="@string/test_mem_handler"/>
+    <Button
+        android:id="@+id/btnThreadMem"
+        android:layout_width="@dimen/size"
+        android:layout_height="wrap_content"
+        android:text="@string/test_mem_thread"/>
+    <Button
+        android:id="@+id/btnStaticMem"
+        android:layout_width="@dimen/size"
+        android:layout_height="wrap_content"
+        android:text="@string/test_mem_static"/>
+    <Button
+        android:id="@+id/btnTransferMem"
+        android:layout_width="@dimen/size"
+        android:layout_height="wrap_content"
+        android:text="@string/transfer_mem"/>
 
     <ImageView
         android:layout_width="match_parent"

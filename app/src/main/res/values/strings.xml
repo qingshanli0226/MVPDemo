@@ -8,4 +8,8 @@
     <string name="menu">MENU</string>
     <string name="please_click_left_button">Please Click The Left Button</string>
     <string name="get_data_success">Get The Data Successfully</string>
+    <string name="test_mem_handler">Handler内存泄漏</string>
+    <string name="test_mem_thread">线程内存泄漏</string>
+    <string name="test_mem_static">静态导致内存泄漏</string>
+    <string name="transfer_mem">跳转导致内存泄漏</string>
 </resources>

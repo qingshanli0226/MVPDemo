@@ -22,6 +22,22 @@
             </intent-filter>
         </activity>
         <activity android:name=".MemActivity"/>
+        <activity android:name=".HandlerActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name=".ThreadActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name=".StaticActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name=".TransferActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>

@@ -54,26 +54,12 @@ public class MainActivity extends BaseActivity implements IBaseView<Object> {
     @Override
     protected void initView() {
         findViewById(R.id.btnGet).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                iHomePresenter.doHttpRequest(HOME_REQUEST_CODE);
-                /*new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        while (true) {
-                            Bitmap bitmap = BitmapFactory.decodeFile("/sdcard/1610A.jpg");
-                            Log.d("LQS", "bitmap ....");
-                            try {
-                                Thread.sleep(100);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            bitmapList.add(bitmap);
-                        }
-                    }
-                }).start();*/
-            }
-        });
+                                                         @Override
+                                                         public void onClick(View v) {
+                                                             iHomePresenter.doHttpRequest(HOME_REQUEST_CODE);
+                                                         }
+                                                     });
+
         findViewById(R.id.btnPost).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +70,31 @@ public class MainActivity extends BaseActivity implements IBaseView<Object> {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, MemActivity.class));
+            }
+        });
+
+        findViewById(R.id.btnHandlerMem).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, HandlerActivity.class));
+            }
+        });
+        findViewById(R.id.btnThreadMem).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ThreadActivity.class));
+            }
+        });
+        findViewById(R.id.btnStaticMem).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, StaticActivity.class));
+            }
+        });
+        findViewById(R.id.btnTransferMem).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, TransferActivity.class));
             }
         });
     }
