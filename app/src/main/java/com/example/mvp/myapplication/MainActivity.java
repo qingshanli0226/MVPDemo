@@ -3,8 +3,6 @@ package com.example.mvp.myapplication;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +11,7 @@ import android.widget.Toast;
 import com.example.mvp.base.BaseActivity;
 import com.example.mvp.base.IBasePresenter;
 import com.example.mvp.base.IBaseView;
+import com.example.mvp.myapplication.cache.CacheManager;
 import com.example.mvp.common.P2PError;
 
 import java.util.ArrayList;
@@ -204,5 +203,17 @@ public class MainActivity extends BaseActivity implements IBaseView<Object> {
         super.onDestroy();
         iHomePresenter.detachView();
         iSplashPresenter.detachView();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        CacheManager.getInstance().clearCache();
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        CacheManager.getInstance().clearCache();
     }
 }

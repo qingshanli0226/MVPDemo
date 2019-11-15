@@ -38,6 +38,8 @@
             android:screenOrientation="portrait">
 
         </activity>
+        <service android:name=".service.CacheService">
+        </service>
     </application>
 
 </manifest>

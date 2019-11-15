@@ -51,6 +51,7 @@
         android:text="@string/transfer_mem"/>
 
     <ImageView
+        android:id="@+id/img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@mipmap/e"/>

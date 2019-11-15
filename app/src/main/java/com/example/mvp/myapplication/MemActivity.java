@@ -15,6 +15,9 @@ import com.example.mvp.base.IBasePresenter;
 import com.example.mvp.base.IBaseView;
 import com.example.mvp.common.P2PError;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -52,8 +55,13 @@ public class MemActivity extends AppCompatActivity implements IBaseView<HomeBean
                 while (true) {
                     try {
                         Thread.sleep(500);
-                        Bitmap bitmap = BitmapFactory.decodeFile("/sdcard/1610A.jpg");
-                        bitmapList.add(bitmap);
+                        /*Bitmap bitmap = BitmapFactory.decodeFile("/sdcard/1610A.jpg");
+                        bitmapList.add(bitmap);*/
+                        try {
+                            FileOutputStream fileOutputStream = new FileOutputStream("/sdcard/1610A.jpg");
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
                         Log.d("LQS","work thread run!");
                     } catch (InterruptedException e) {
                         e.printStackTrace();

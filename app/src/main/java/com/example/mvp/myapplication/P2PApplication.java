@@ -1,8 +1,9 @@
 package com.example.mvp.myapplication;
 
 import android.app.Application;
+import android.util.Log;
 
-import com.example.mvp.base.P2PCrashHandler;
+import com.example.mvp.myapplication.cache.CacheManager;
 import com.example.mvp.common.NetConnectManager;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
@@ -24,5 +25,22 @@ public class P2PApplication extends Application {
             refWatcher = LeakCanary.install(this);
         }
 
+        CacheManager.getInstance().init(this);
+    }
+
+
+    //当应用程序内存不足时，会回调该函数
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        Log.d("LQS", "onLowMemory...............");
+        CacheManager.getInstance().clearCache();
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        Log.d("LQS", "onTrimMemory...............");
+        CacheManager.getInstance().clearCache();
     }
 }
