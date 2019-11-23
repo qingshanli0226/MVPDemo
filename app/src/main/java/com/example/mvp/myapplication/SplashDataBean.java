@@ -2,13 +2,6 @@ package com.example.mvp.myapplication;
 
 public class SplashDataBean {
 
-    /**
-     * retCode : 0
-     * splash : {"isDownload":"1","resolutionWidth":"1080","jopUrl":"https://h5.m.taopiaopiao.com/app/moviemain/pages/show-detail/index.html?showid=226358","osType":"2","contentType":"0","endTime":"1519401540","type":"0","transparency":"0","id":"5","displayTime":"3.0","title":"安卓分辨率1080*1920","ifShading":"1","resolutionHeight":"1920","imgurl":"http://img.moviebase.cn/img/other/2018/02/4cc9281c1e544514a71dd408e99ac3ca.jpg"}
-     * requestId : 069ca790-d693-4326-98ec-1d14129abfc2
-     * retMsg :
-     */
-
     private int retCode;
     private SplashBean splash;
     private String requestId;
@@ -45,6 +38,14 @@ public class SplashDataBean {
     public void setRetMsg(String retMsg) {
         this.retMsg = retMsg;
     }
+
+    /**
+     * retCode : 0
+     * splash : {"isDownload":"1","resolutionWidth":"1080","jopUrl":"https://h5.m.taopiaopiao.com/app/moviemain/pages/show-detail/index.html?showid=226358","osType":"2","contentType":"0","endTime":"1519401540","type":"0","transparency":"0","id":"5","displayTime":"3.0","title":"安卓分辨率1080*1920","ifShading":"1","resolutionHeight":"1920","imgurl":"http://img.moviebase.cn/img/other/2018/02/4cc9281c1e544514a71dd408e99ac3ca.jpg"}
+     * requestId : 069ca790-d693-4326-98ec-1d14129abfc2
+     * retMsg :
+     */
+
 
     public static class SplashBean {
         /**

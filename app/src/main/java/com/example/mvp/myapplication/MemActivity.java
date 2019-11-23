@@ -29,7 +29,6 @@ public class MemActivity extends AppCompatActivity implements IBaseView<HomeBean
     private List<Bitmap> bitmapList = new LinkedList<>();
 
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

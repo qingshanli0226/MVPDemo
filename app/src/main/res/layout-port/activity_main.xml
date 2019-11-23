@@ -49,6 +49,11 @@
         android:layout_width="@dimen/size"
         android:layout_height="wrap_content"
         android:text="@string/transfer_mem"/>
+    <Button
+        android:id="@+id/btnScroll"
+        android:layout_width="@dimen/size"
+        android:layout_height="wrap_content"
+        android:text="@string/view_scroll"/>
 
     <ImageView
         android:id="@+id/img"

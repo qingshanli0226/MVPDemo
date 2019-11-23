@@ -38,7 +38,11 @@
             android:screenOrientation="portrait">
 
         </activity>
-        <service android:name=".service.CacheService">
+        <activity android:name=".ScrollActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <service android:name="com.example.mvp.base.service.CacheService">
         </service>
     </application>
 

@@ -1,11 +1,12 @@
-package com.example.mvp.myapplication.service;
+package com.example.mvp.base.service;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 
-import com.example.mvp.myapplication.HomeBean;
+import com.example.mvp.base.HomeBean;
+
 
 public class CacheService extends Service {
 

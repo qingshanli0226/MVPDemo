@@ -1,17 +1,25 @@
 package com.example.mvp.myapplication;
 
+import android.app.ActivityManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.mvp.base.BaseActivity;
 import com.example.mvp.base.IBasePresenter;
 import com.example.mvp.base.IBaseView;
-import com.example.mvp.myapplication.cache.CacheManager;
+import com.example.mvp.base.CacheManager;
 import com.example.mvp.common.P2PError;
 
 import java.util.ArrayList;
@@ -27,6 +35,8 @@ public class MainActivity extends BaseActivity implements IBaseView<Object> {
 
     private final int HOME_REQUEST_CODE = 100;
     private final int SPLASH_REQUEST_CODE = 200;
+
+    private int count = 0;
 
     List<Bitmap> bitmapList = new ArrayList<>();
 
@@ -96,6 +106,50 @@ public class MainActivity extends BaseActivity implements IBaseView<Object> {
                 startActivity(new Intent(MainActivity.this, TransferActivity.class));
             }
         });
+        findViewById(R.id.btnScroll).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ScrollActivity.class));
+            }
+        });
+
+        new Thread(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.P)
+            @Override
+            public void run() {
+                /**
+                 * 当前版本号
+                 *
+                 * @return
+                 */
+
+                    long version = 0;
+                    PackageManager manager = getPackageManager();
+                    try {
+                        PackageInfo packageInfo = manager.getPackageInfo(getPackageName(), 0);
+                        version = packageInfo.versionCode;
+                    } catch (PackageManager.NameNotFoundException e) {
+                        //e.printStackTrace(); //如果找不到对应的应用包信息, 就返回"未知版本"
+                    }
+                    Log.d("LQS: version:", version+"");
+                }
+
+        }).start();
+
+        Log.d("LQS", count + "");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("LQS: ", "onStart 是否在后台 = " + isApplicationBroughtToBackground(this));
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("LQS: ", "onStop 是否在后台 = " + isApplicationBroughtToBackground(this));
     }
 
     @Override
@@ -215,5 +269,24 @@ public class MainActivity extends BaseActivity implements IBaseView<Object> {
     public void onTrimMemory(int level) {
         super.onTrimMemory(level);
         CacheManager.getInstance().clearCache();
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        Log.d("LQS:", "dispatchTouchEvent...");
+        return super.dispatchTouchEvent(ev);
+    }
+
+    //判断当前应用是否处于后台
+    public boolean isApplicationBroughtToBackground(final Context context) {
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
+        if (!tasks.isEmpty()) {
+            ComponentName topActivity = tasks.get(0).topActivity;
+            if (!topActivity.getPackageName().equals(context.getPackageName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

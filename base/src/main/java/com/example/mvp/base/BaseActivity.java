@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.mvp.common.ActivityInstanceManager;
-import com.example.mvp.common.NetConnectManager;
 import com.example.mvp.common.view.TitleBar;
 
 public abstract class BaseActivity extends AppCompatActivity implements TitleBar.ITitleViewClickListener, NetConnectManager.INetConnectListener {

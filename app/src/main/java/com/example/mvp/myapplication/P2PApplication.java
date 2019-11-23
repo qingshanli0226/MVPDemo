@@ -3,8 +3,8 @@ package com.example.mvp.myapplication;
 import android.app.Application;
 import android.util.Log;
 
-import com.example.mvp.myapplication.cache.CacheManager;
-import com.example.mvp.common.NetConnectManager;
+import com.example.mvp.base.CacheManager;
+import com.example.mvp.base.NetConnectManager;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 

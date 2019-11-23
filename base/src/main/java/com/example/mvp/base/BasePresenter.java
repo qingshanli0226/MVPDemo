@@ -7,11 +7,15 @@ import com.example.mvp.net.RetrofitCreator;
 import com.example.mvp.net.RetrofitPostCreator;
 import com.google.gson.Gson;
 
+import org.reactivestreams.Subscription;
+
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -90,6 +94,28 @@ public abstract class BasePresenter<T> implements IBasePresenter {
 
                     }
                 });
+
+        Observable.interval(1, TimeUnit.SECONDS).subscribe(new Observer<Long>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(Long aLong) {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
 
     }
 

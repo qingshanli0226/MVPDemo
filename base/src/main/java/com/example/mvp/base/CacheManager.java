@@ -1,20 +1,17 @@
-package com.example.mvp.myapplication.cache;
+package com.example.mvp.base;
 
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.IBinder;
 import android.util.Log;
 import android.util.LruCache;
 
-import com.example.mvp.common.NetConnectManager;
-import com.example.mvp.myapplication.HomeBean;
-import com.example.mvp.myapplication.service.CacheService;
+import com.example.mvp.base.service.CacheService;
 
-import java.util.ArrayList;
+
 import java.util.LinkedList;
 import java.util.List;
 

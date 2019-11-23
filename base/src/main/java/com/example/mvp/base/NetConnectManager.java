@@ -1,11 +1,9 @@
-package com.example.mvp.common;
+package com.example.mvp.base;
 
-import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.icu.util.ICUUncheckedIOException;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
